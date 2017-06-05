@@ -61,42 +61,48 @@ double Complex::arg(){
 double Complex::norm(){
     return ((re*re)+(im*im));
 }
-Complex& Complex::conj(){
-    return *(new Complex(re, -im));
+Complex Complex::conj(){
+    Complex retval (re, -im);
+    return retval;
 }
 void Complex::polar(const double magnitude, const double angle){
     re = magnitude * cos(angle);
     im = magnitude * sin(angle);
 }
 
-Complex& operator+ (Complex& a){
-    return *(new Complex(a.real(), a.imag()));
+Complex operator+ (Complex& a){
+    Complex retval(a.real(), a.imag());
+    return retval;
 }
-Complex& operator- (Complex& a){
+Complex operator- (Complex& a){
+    Complex retval(-a.real(), -a.imag());
+    return retval;
 
-    return *(new Complex(-a.real(), -a.imag()));
-
 }
 
-Complex& operator+ (Complex& a, Complex& b){
-    return *(new Complex(a.real() + b.real(), a.imag() + b.imag()));
+Complex operator+ (Complex& a, Complex& b){
+    Complex retval(a.real() + b.real(), a.imag() + b.imag())
+    return retval;
 }
-Complex& operator- (Complex& a, Complex& b){
-    return *(new Complex(a.real() - b.real(), a.imag() - b.imag()));
+Complex operator- (Complex& a, Complex& b){
+    Complex retval(a.real() - b.real(), a.imag() - b.imag());
+    return retval;
 }
-Complex& operator* (Complex& a, Complex& b){
+Complex operator* (Complex& a, Complex& b){
     double ret_re, ret_im;
 
     ret_re = (a.real() * b.real()) - (a.imag() * b.imag());
     ret_im = (a.real() * b.imag()) + (a.imag() * b.real());
-    return *(new Complex(ret_re, ret_im));
+    Complex retval(ret_re, ret_im);
+    return retval;
 }
-Complex& operator/ (Complex& a, Complex& b){
+Complex operator/ (Complex& a, Complex& b){
     double ret_re, ret_im;
     double divider = ((b.real()*b.real()) + (b.imag() * b.imag()));
     ret_re = (a.real() * b.real()) - (a.imag() * b.imag())/divider;
     ret_im = (a.real() * b.imag()) + (a.imag() * b.real())/divider;
-    return *(new Complex(ret_re, ret_im));
+    Complex retval(ret_re, ret_im);
+    return retval;
 }
 bool operator== (Complex& a, Complex& b){
     return (a.real()==b.real())&&(a.imag()==b.imag());
